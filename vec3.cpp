@@ -2,6 +2,7 @@
 #ifndef VEC3_H
 #define VEC3_H
 
+// rizz
 #include <cmath>
 
 struct vec3 {
@@ -48,8 +49,8 @@ struct vec3 {
     }
 
     vec3 normalized(const vec3& v){
-        double l = v.length()
-        return v
+        double l = v.length();
+        return l; 
     }
 
     double r() const {return v[0]; }
