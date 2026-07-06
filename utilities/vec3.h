@@ -1,9 +1,9 @@
 
-#ifndef VEC3_H
-#define VEC3_H
+# ifndef VEC3_H
+# define VEC3_H
 
 // rizz
-#include <cmath>
+# include <cmath>
 
 struct vec3 {
 
@@ -37,6 +37,11 @@ struct vec3 {
         return *this;
     }
 
+    const vec3 operator/ (const double c){
+        vec3 v2 = vec3(v[0], v[1], v[2]); 
+        return v2 /= c;
+    }
+
     vec3& operator/=(double c){
         v[0] /= c;
         v[1] /= c;
@@ -44,13 +49,13 @@ struct vec3 {
         return *this;
     }
 
-    double length(){
+    double length() const{
         return sqrt(pow(v[0], 2) + pow(v[1], 2) + pow(v[2], 2));
     }
 
     vec3 normalized(const vec3& v){
         double l = v.length();
-        return l; 
+        return v / l; 
     }
 
     double r() const {return v[0]; }
@@ -61,14 +66,7 @@ struct vec3 {
     double y() const {return v[1]; }
     double z() const {return v[2]; }
 
-
-
-    
-
-
-
-
     
 };
 
-#endif
+# endif
