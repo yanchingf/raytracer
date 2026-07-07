@@ -37,11 +37,6 @@ struct vec3 {
         return *this;
     }
 
-    const vec3 operator/ (const double c){
-        vec3 v2 = vec3(v[0], v[1], v[2]); 
-        return v2 /= c;
-    }
-
     vec3& operator/=(double c){
         v[0] /= c;
         v[1] /= c;
@@ -49,8 +44,26 @@ struct vec3 {
         return *this;
     }
 
+    vec3 operator+ (const vec3& v2) const{
+        vec3 v3 = vec3(v[0], v[1], v[2]);
+        v3.v[0] += v2.v[0];
+        v3.v[1] += v2.v[1];
+        v3.v[2] += v2.v[2];
+        return v3;
+    }
+
+    vec3 operator* (double c) const{
+        vec3 v2 = vec3(v[0], v[1], v[2]); 
+        return v2 *= c;
+    }
+
+    vec3 operator/ (double c) const{
+        vec3 v2 = vec3(v[0], v[1], v[2]); 
+        return v2 /= c;
+    }
+
     double length() const{
-        return sqrt(pow(v[0], 2) + pow(v[1], 2) + pow(v[2], 2));
+        return sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
     }
 
     vec3 normalized(const vec3& v){

@@ -7,7 +7,9 @@
 #include "utilities/color.h"
 #include "utilities/vec3.h"
 
-using color = vec3;
+
+struct Point3 : vec3{};
+struct Color : vec3 {};
 
 int main() {
 
