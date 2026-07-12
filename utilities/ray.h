@@ -5,6 +5,7 @@
 #include "vec3.h"
 
 struct Point3 : vec3{};
+stuct Color: vec3{};
 
 struct ray {
 
@@ -14,6 +15,8 @@ struct ray {
     vec3 get_ray(double t){
         return origin + direction * t;
     }
+
+
 
 };
 
