@@ -4,15 +4,17 @@
 
 #include "vec3.h"
 
-struct Point3 : vec3{};
-stuct Color: vec3{};
+using Point3 = vec3;
+using Color = vec3;
 
-struct ray {
+struct Ray {
 
     Point3 origin;
     vec3 direction;
 
-    vec3 get_ray(double t){
+    Ray(Point3& o, vec3& d) : origin(o), direction(d) {}
+
+    vec3 at(double t) const{
         return origin + direction * t;
     }
 

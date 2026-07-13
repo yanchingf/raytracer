@@ -5,9 +5,9 @@
 # include "vec3.h"
 # include <iostream>
 
-using color = vec3;
+using Color = vec3;
 
-void write_color(const color& pixel_color){
+void write_color(const Color& pixel_color){
 
     auto r = pixel_color.r();
     auto g = pixel_color.g();
