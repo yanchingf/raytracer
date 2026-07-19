@@ -69,12 +69,6 @@ struct vec3 {
         return v2 /= c;
     }
 
-    double dot(vec3& v2){
-        return (v[0] - v2.v[0]) * (v[0] - v2.v[0]) +
-               (v[1] - v2.v[1]) * (v[1] - v2.v[1]) + 
-               (v[2] - v2.v[2]) * (v[2] - v2.v[2]);
-    }
-
     double length() const{
         return sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
     }
@@ -91,7 +85,10 @@ struct vec3 {
     double y() const {return v[1]; }
     double z() const {return v[2]; }
 
-    
 };
+
+double dot(const vec3& v1, const vec3& v2){
+    return (v1.v[0] * v2.v[0]) + (v1.v[1] * v2.v[1]) + (v1.v[2] * v2.v[2]);
+}
 
 # endif
