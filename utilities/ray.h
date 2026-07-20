@@ -12,7 +12,7 @@ struct Ray {
     Point3 origin;
     vec3 direction;
 
-    Ray(Point3& o, vec3& d) : origin(o), direction(d) {}
+    Ray(const Point3& o, const vec3& d) : origin(o), direction(d) {}
 
     vec3 at(double t) const{
         return origin + direction * t;
