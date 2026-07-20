@@ -34,10 +34,8 @@ struct Sphere : Hittable {
 
         rec.t = root;
         rec.p = r.at(rec.t);
-        vec3 outward_normal = (rec.p - center).normalized();
-
-        rec.front_face = dot(r.direction, outward_normal) < 0;
-        rec.n = rec.front_face ? outward_normal : -outward_normal;
+        vec3 outward_normal = (rec.p - center) / radius;
+        rec.set_face(r, outward_normal);
 
         return true;
     }

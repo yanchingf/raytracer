@@ -11,7 +11,7 @@ struct vec3 {
     vec3() : v{0, 0, 0} {}
     vec3(double a, double b, double c) : v{a, b, c} {}
 
-    vec3 operator-(){
+    vec3 operator-() const{
         return vec3(-v[0], -v[1], -v[2]);
     }
 

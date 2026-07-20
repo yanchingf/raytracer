@@ -11,6 +11,11 @@ struct Hit_Record {
 
     bool front_face;
 
+    void set_face(const Ray& r, const vec3& outward){
+        front_face = dot(r.direction, outward) < 0;
+        n = front_face ? outward : -outward;
+    }
+
 };
 
 struct Hittable {
