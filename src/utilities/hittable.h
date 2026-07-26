@@ -5,6 +5,8 @@
 #include "ray.h"
 #include "AABB.h"
 
+#include <memory>
+
 struct Hit_Record {
 
     Point3 p;
