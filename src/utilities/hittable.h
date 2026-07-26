@@ -3,8 +3,10 @@
 #define HITTABLE_H
 
 #include "ray.h"
+#include "AABB.h"
 
 struct Hit_Record {
+
     Point3 p;
     vec3 n;
     double t; // t param of ray hit
@@ -22,6 +24,7 @@ struct Hittable {
 
     virtual ~Hittable() = default;
     virtual bool hit(const Ray& r, double t_min, double t_max, Hit_Record& rec) const = 0;
+    virtual bool BoundingBox(AABB& lim) const = 0;
 
 };
 

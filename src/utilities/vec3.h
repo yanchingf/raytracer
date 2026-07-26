@@ -85,10 +85,22 @@ struct vec3 {
     double y() const {return v[1]; }
     double z() const {return v[2]; }
 
+    double operator[] (int i) const {return v[i]; }
+
 };
 
-double dot(const vec3& v1, const vec3& v2){
+inline double dot(const vec3& v1, const vec3& v2){
     return (v1.v[0] * v2.v[0]) + (v1.v[1] * v2.v[1]) + (v1.v[2] * v2.v[2]);
 }
 
-# endif
+inline vec3 operator*(double c, const vec3& v) {
+    return v * c; 
+}
+
+inline vec3 cross(const vec3& v1, const vec3& v2) {
+    return vec3(v1.v[1]*v2.v[2] - v1.v[2]*v2.v[1],
+                v1.v[2]*v2.v[0] - v1.v[0]*v2.v[2],
+                v1.v[0]*v2.v[1] - v1.v[1]*v2.v[0]);
+}
+
+#endif

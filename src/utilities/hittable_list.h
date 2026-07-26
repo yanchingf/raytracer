@@ -1,5 +1,5 @@
 
-#ifdef HITTABLE_LIST_H
+#ifndef HITTABLE_LIST_H
 #define HITTABLE_LIST_H
 
 #include "hittable.h"
@@ -9,16 +9,17 @@
 
 struct Hittable_List : Hittable {
 
-    std::vector<shared_ptr<hittable>> objs;
+    std::vector<std::shared_ptr<Hittable>> objs;
 
     Hittable_List() {}
-    Hittable_List(shared_ptr<hittable> obj) {add(objs);}
+    Hittable_List(std::shared_ptr<Hittable> obj) {add(objs);}
 
     void clear() {objs.clear();}
-    void add(shared_ptr<hittable> obj) {objs.push_back(obj);}
+    void add(std::shared_ptr<Hittable> obj) {objs.push_back(obj);}
 
-    bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) const override {
-        hit_record temp_rec;
+    bool hit(const Ray& r, double ray_tmin, double ray_tmax, Hit_Record& rec) const override {
+        
+        Hit_Record temp_rec;
         bool hit_anything = false;
         auto closest_so_far = ray_tmax;
 
