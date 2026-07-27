@@ -12,13 +12,13 @@ struct Hittable_List : Hittable {
     std::vector<std::shared_ptr<Hittable>> objs;
 
     Hittable_List() {}
-    Hittable_List(std::shared_ptr<Hittable> obj) {add(objs);}
+    Hittable_List(std::shared_ptr<Hittable> obj) {add(obj);}
 
     void clear() {objs.clear();}
     void add(std::shared_ptr<Hittable> obj) {objs.push_back(obj);}
 
     bool hit(const Ray& r, double ray_tmin, double ray_tmax, Hit_Record& rec) const override {
-        
+
         Hit_Record temp_rec;
         bool hit_anything = false;
         auto closest_so_far = ray_tmax;

@@ -15,23 +15,35 @@ struct BVNHNode : Hittable {
     std::shared_ptr<Hittable> right;
     int axis;
 
-    BVNHNode () : {}
-    BVNHNode (std::vector<std::shared_ptr<Hittable>>& objects, size_t start, size_t end) : {
+    BVNHNode () {}
+    BVNHNode (std::vector<std::shared_ptr<Hittable>>& objs, size_t start, size_t end) {
 
         int axis = 0;
 
+        auto comparator = boxcompareZ;
+
         if (axis == 0){
-            auto comparator = boxcompareX;
+            comparator = boxcompareX;
         }
         else if (axis == 1){
-            auto comparator = boxcompareY;
-        }
-        else {
-            auto comparator = boxcompareZ;
+            comparator = boxcompareY;
         }
 
-        size_t span = end - start;
+        size_t span = end - start; // number of objs in this node
 
+        if (span == 1) {left = right = objs[start]; }
+        else if (span == 2) {
+            left = objs[start];
+            right = objs[start + 1];
+
+            if (comparator(left, right)) {std::swap(left, right); }
+        }
+        else { // split into more nodes
+            std::sort(objs.begin() + start, objs.begin() + end, comparator);
+            size_t mid = start + span / 2;
+            left  = std::make_shared<BVNHNode>(objs, start, mid);
+            right = std::make_shared<BVNHNode>(objs, mid, end);
+        }
 
     }
 
@@ -63,10 +75,24 @@ struct BVNHNode : Hittable {
         return boxcompare(a, b, 2);
     }
     
-    
 };
 
-struct BVNHTree {
+struct BVNHTree : Hittable {
+
+    std::shared_ptr<BVNHNode> root;
+
+    BVNHTree() {}
+    BVNHTree(std::vector<std::shared_ptr<Hittable>> objs) {
+        root = std::make_shared<BVNHNode>(objs, 0, objs.size());
+    }
+
+    bool hit(const Ray& r, double t_min, double t_max, Hit_Record& rec) const override {
+        return root->hit(r, t_min, t_max, rec);
+    }
+
+    bool BoundingBox(AABB& outputBox) const override {
+        return root->BoundingBox(outputBox);
+    }
     
 };
 
