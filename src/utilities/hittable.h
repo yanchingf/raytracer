@@ -4,15 +4,19 @@
 
 #include "ray.h"
 #include "AABB.h"
+#include "material.h"
 
 #include <memory>
+
+struct Material;
 
 struct Hit_Record {
 
     Point3 p;
     vec3 n;
+    std::shared_ptr<Material> mat;
     double t; // t param of ray hit
-
+    
     bool front_face;
 
     void set_face(const Ray& r, const vec3& outward){

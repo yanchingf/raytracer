@@ -103,4 +103,17 @@ inline vec3 cross(const vec3& v1, const vec3& v2) {
                 v1.v[0]*v2.v[1] - v1.v[1]*v2.v[0]);
 }
 
+inline vec3 reflect(const vec3& v, const vec3& n) {
+    return v - 2 * dot(v, n) * n;
+}
+
+inline vec3 randomUnitVector() {
+    while (true) {
+        vec3 p = vec3(2*randomDouble()-1, 2*randomDouble()-1, 2*randomDouble()-1);
+        double lensq = p.length() * p.length();
+        if (1e-160 < lensq && lensq <= 1)
+            return p / sqrt(lensq);
+    }
+}
+
 #endif
