@@ -15,6 +15,7 @@ struct Camera {
     double aspect_ratio = 16.0 / 9.0;
     int image_width = 400;
     double focal_length = 1.0;
+    int max_depth = 10; // max num of times ray bounces
 
     int image_height;
     Point3 center;
@@ -22,9 +23,9 @@ struct Camera {
     vec3 pixel_delta_u;
     vec3 pixel_delta_v;
 
-    Camera (int& image_w) {
+    Camera (int image_w) {
 
-        image_width = 400;
+        image_width = image_w;
         image_height = int(image_width / aspect_ratio);
         image_height = (image_height < 1) ? 1 : image_height;
 

@@ -3,6 +3,7 @@
 # define VEC3_H
  
 # include <cmath>
+#include <cstdlib>
 
 struct vec3 {
 
@@ -89,6 +90,14 @@ struct vec3 {
 
 };
 
+inline double random_double() {
+    return rand() / (RAND_MAX + 1.0);
+}
+
+inline double random_double(double min, double max) {
+    return min + (max - min) * random_double();
+}
+
 inline double dot(const vec3& v1, const vec3& v2){
     return (v1.v[0] * v2.v[0]) + (v1.v[1] * v2.v[1]) + (v1.v[2] * v2.v[2]);
 }
@@ -103,16 +112,22 @@ inline vec3 cross(const vec3& v1, const vec3& v2) {
                 v1.v[0]*v2.v[1] - v1.v[1]*v2.v[0]);
 }
 
-inline vec3 reflect(const vec3& v, const vec3& n) {
-    return v - 2 * dot(v, n) * n;
-}
-
-inline vec3 randomUnitVector() {
+inline vec3 random_unit_vector() {
     while (true) {
-        vec3 p = vec3(2*randomDouble()-1, 2*randomDouble()-1, 2*randomDouble()-1);
+        vec3 p = vec3(2 * random_double()-1, 2 * random_double()-1, 2 * random_double()-1);
         double lensq = p.length() * p.length();
         if (1e-160 < lensq && lensq <= 1)
             return p / sqrt(lensq);
+    }
+}
+
+inline vec3 random_same_hemisphere(vec3 n) {
+    vec3 v = random_unit_vector();
+    if (dot(v, n) > 0.0){
+        return v;
+    }
+    else {
+        return -v;
     }
 }
 

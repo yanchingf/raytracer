@@ -4,7 +4,6 @@
 
 #include "ray.h"
 #include "AABB.h"
-#include "material.h"
 
 #include <memory>
 

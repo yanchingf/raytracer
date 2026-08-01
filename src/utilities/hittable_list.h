@@ -34,6 +34,21 @@ struct Hittable_List : Hittable {
         return hit_anything;
     }
 
+    bool BoundingBox(AABB& outputBox) const override {
+    if (objs.empty()) return false;
+
+    AABB tempBox;
+    bool firstBox = true;
+
+    for (const auto& obj : objs) {
+        if (!obj->BoundingBox(tempBox)) return false; // if single unbounded obj
+        outputBox = firstBox ? tempBox : AABB(outputBox, tempBox);
+        firstBox = false;
+    }
+
+    return true;
+}
+
 };
 
 #endif
