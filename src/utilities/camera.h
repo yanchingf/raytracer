@@ -10,6 +10,7 @@
 #include <limits>
 #include <iostream>
 
+
 struct Camera {
 
     double aspect_ratio = 16.0 / 9.0;
@@ -50,15 +51,23 @@ struct Camera {
         return Ray(center, ray_direction);
     }
 
-    Color rayColor(const Ray& r, const Hittable& world) const {
-        Hit_Record rec;
-        if (world.hit(r, 0.001, std::numeric_limits<double>::infinity(), rec)) {
-            return 0.5 * (rec.n + Color(1, 1, 1));
-        }
-        vec3 unit_direction = r.direction.normalized();
-        double a = 0.5 * (unit_direction.y() + 1.0);
-        return (1.0 - a) * Color(1.0, 1.0, 1.0) + a * Color(0.5, 0.7, 1.0);
+    Color rayColor(const Ray& r, int depth, const Hittable& world) const {
+        
+    if (depth <= 0) return Color(0, 0, 0);
+    Hit_Record rec;
+
+    if (world.hit(r, 0.001, infinity, rec)) {
+        Ray scattered;
+        Color attenuation;
+        if (rec.mat->scatter(r, rec, attenuation, scattered))
+            return attenuation * rayColor(scattered, depth - 1, world);
+        return Color(0, 0, 0);
     }
+
+    vec3 unit_direction = r.direction.normalized();
+    double a = 0.5 * (unit_direction.y() + 1.0);
+    return (1.0 - a) * Color(1.0, 1.0, 1.0) + a * Color(0.5, 0.7, 1.0);
+}
 
     void render(const Hittable& world) {
         std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";

@@ -24,7 +24,7 @@ int main() {
     world.add(std::make_shared<Sphere>(Point3( 0, 0, -1), 0.5, material_center));
     world.add(std::make_shared<Sphere>(Point3(-1, 0, -1), 0.5, material_left));
 
-    Camera cam(400); 
+    Camera cam(800); // img width
     cam.render(world);
 
 }
