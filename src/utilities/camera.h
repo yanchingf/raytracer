@@ -6,10 +6,12 @@
 #include "ray.h"
 #include "hittable.h"
 #include "color.h"
+#include "material.h"
 
 #include <limits>
 #include <iostream>
 
+const double infinity = std::numeric_limits<double>::infinity();
 
 struct Camera {
 
@@ -53,15 +55,17 @@ struct Camera {
 
     Color rayColor(const Ray& r, int depth, const Hittable& world) const {
         
-    if (depth <= 0) return Color(0, 0, 0);
-    Hit_Record rec;
+        if (depth <= 0) return Color(0, 0, 0);
+        Hit_Record rec;
 
-    if (world.hit(r, 0.001, infinity, rec)) {
-        Ray scattered;
-        Color attenuation;
-        if (rec.mat->scatter(r, rec, attenuation, scattered))
-            return attenuation * rayColor(scattered, depth - 1, world);
-        return Color(0, 0, 0);
+        if (world.hit(r, 0.001, infinity, rec)) {
+
+            Ray scattered;
+            Color attenuation;
+            if (rec.mat->scatter(r, rec, attenuation, scattered))
+                return attenuation * rayColor(scattered, depth - 1, world);
+            return Color(0, 0, 0);
+
     }
 
     vec3 unit_direction = r.direction.normalized();
@@ -76,7 +80,7 @@ struct Camera {
             std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
             for (int i = 0; i < image_width; i++) {
                 Ray r = getRay(i, j);
-                Color pixel_color = rayColor(r, world);
+                Color pixel_color = rayColor(r, max_depth, world);
                 write_color(pixel_color);
             }
         }

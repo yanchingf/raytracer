@@ -12,6 +12,7 @@ struct Ray {
     Point3 origin;
     vec3 direction;
 
+    Ray() : origin(Point3(0,0,0)), direction(vec3(0,0,0)) {}
     Ray(const Point3& o, const vec3& d) : origin(o), direction(d) {}
 
     vec3 at(double t) const{

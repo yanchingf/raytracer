@@ -65,6 +65,10 @@ struct vec3 {
         return v2 *= c;
     }
 
+    vec3 operator* (const vec3& v2) const {
+        return vec3(v[0] * v2.v[0], v[1] * v2.v[1], v[2] * v2.v[2]);
+    }
+
     vec3 operator/ (double c) const{
         vec3 v2 = vec3(v[0], v[1], v[2]); 
         return v2 /= c;
