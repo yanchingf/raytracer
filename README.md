@@ -93,4 +93,4 @@ Inspired by:
 ## Example Output
 
 As of 7/29/26
-![Rendered scene](docs/C:\Users\milan\Desktop\raytracer\docs\Screenshot 2026-08-02 202452.png)
+![Rendered scene](docs/scene.png)
